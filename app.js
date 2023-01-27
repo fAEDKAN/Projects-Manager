@@ -2,8 +2,11 @@ require("dotenv").config();
 const createError = require("http-errors");
 const express = require("express");
 const logger = require("morgan");
+const connectDb = require("./database/config");
 
 const app = express();
+
+connectDb();
 
 app
     .use(logger("dev"))
