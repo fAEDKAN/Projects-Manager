@@ -8,3 +8,5 @@ export const ConfirmAccount = () => {
         </>
     );
 };
+
+export default ConfirmAccount;
