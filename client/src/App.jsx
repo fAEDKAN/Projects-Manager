@@ -1,29 +1,32 @@
 import "./App.css";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-/* import ConfirmAccount from "./pages/ConfirmAccount";
 import ForgetPassword from "./pages/ForgetPassword";
-import RecoverPassword  from "./pages/RecoverPassword"; */
+import RecoverPassword from "./pages/RecoverPassword";
+import ConfirmAccount from "./pages/ConfirmAccount";
 
 function App() {
     return (
-        <>
             <BrowserRouter>
-                <Link to="/login">Iniciar Sesión</Link>
-                <Link to="/register">Registrarme </Link>
-                {/*                 <Link to="/confirm-account">Confirmar Cuenta</Link>
-                <Link to="/forget-password">Olvidé mi Contraseña</Link>
-                <Link to="/reset-password">Restablecer Contraseña</Link> */}
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    {/*                     <Route path="/confirm-account" element={<ConfirmAccount />} />
-                    <Route path="/forget-password" element={<ForgetPassword />} />
-                    <Route path="/reset-password" element={<RecoverPassword />} /> */}
-                </Routes>
-            </BrowserRouter>
-        </>
+            <Routes>
+                <Route path="/" element={<AuthLayout />}>
+                    <Route index element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                    <Route
+                        path="forget-password"
+                        element={<ForgetPassword />}
+                    />
+                    <Route
+                        path="recover-password/:token"
+                        element={<RecoverPassword />}
+                    />
+                    <Route path="confirm/:token" element={<ConfirmAccount />} />
+                    <Route path="*" element={<h1>404: NOT FOUND!</h1>} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 }
 

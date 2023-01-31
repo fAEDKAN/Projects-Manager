@@ -3,6 +3,7 @@ const User = require("../database/models/User");
 const errorResponse = require("../helpers/errorResponse");
 const generateRandomToken = require("../helpers/generateRandomToken");
 const generateJWT = require("../helpers/generateJWT");
+const { confirmRegister, forgetPassword } = require("../helpers/sendMails");
 
 module.exports = {
     register: async (req, res) => {
@@ -23,13 +24,20 @@ module.exports = {
                 throw createError(400, "El email ya se encuentra registrado");
             }
 
+            const token = generateRandomToken();
+
             user = new User(req.body);
-            user.token = generateRandomToken();
+            user.token = token;
 
             //guardamos el usuario
             const userStore = await user.save();
 
             //TODO: enviar el email de confirmación
+            await confirmRegister({
+                name: userStore.name,
+                email: userStore.email,
+                token: userStore.token,
+            });
 
             return res.status(201).json({
                 ok: true,
@@ -123,12 +131,19 @@ module.exports = {
         try {
             let user = await User.findOne({ email: email });
 
-            if (!user) throw createError(400, "Email incorrecto")
+            if (!user)
+                throw createError(400, "El email no se encuentra registrado");
 
-            user.token = generateRandomToken();
+            const token = generateRandomToken();
+
+            user.token = token;
             await user.save();
 
-            //TODO: Enviar email para reestablecer contraseña
+            await forgetPassword({
+                name: user.name,
+                email: user.email,
+                token: user.token,
+            });
 
             return res.status(200).json({
                 ok: true,
@@ -142,36 +157,48 @@ module.exports = {
     verifyToken: async (req, res) => {
         //permite checkear el token recibido por el usuario
         try {
+            const { token } = req.body;
+
+            if (!token) throw createError(400, "Token inexistente");
+
+            const user = await User.findOne({
+                token,
+            });
+
+            if (!user) throw createError(400, "Token inválido");
+
             return res.status(200).json({
                 ok: true,
                 msg: "User verified token",
             });
         } catch (error) {
-            console.log(error);
-            return res.status(error.status || 500).json({
-                ok: false,
-                msg:
-                    error.message ||
-                    "Ups... Something went wrong with your token verification",
-            });
+            return errorResponse(res, error, "VERIFY-TOKEN");
         }
     },
 
     changePassword: async (req, res) => {
         //permite cambiar la contraseña
         try {
+            const { token } = req.query;
+            const { password } = req.body;
+
+            if (!password)
+                throw createError(400, "La contraseña es obligatoria");
+
+            const user = await User.findOne({
+                token,
+            });
+
+            user.password = password;
+            user.token = "";
+            await user.save();
+
             return res.status(201).json({
                 ok: true,
                 msg: "User changed password",
             });
         } catch (error) {
-            console.log(error);
-            return res.status(error.status || 500).json({
-                ok: false,
-                msg:
-                    error.message ||
-                    "Ups... Something went wrong with your password change",
-            });
+            return errorResponse(res, error, "CHANGE-PASSWORD");
         }
     },
 };

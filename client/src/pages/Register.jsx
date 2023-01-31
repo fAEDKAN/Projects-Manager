@@ -45,7 +45,7 @@ export const Register = () => {
                     <button type="submit" >Crear Cuenta</button>
                 </form>
                 <nav>
-                    <Link to={"/login"}>Estás registrado? Iniciá sesión!</Link>
+                    <Link to={"/"}>Estás registrado? Iniciá sesión!</Link>
                 </nav>
             </div>
         </>

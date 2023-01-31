@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export const Login = () => {
     return (
         <>
-            <div>
-                <h1 className="">Iniciá Sesión</h1>
+            <div className="bg-stone-600 p-24">
+                <h1 className="text-slate-50 uppercase font-bold text-4xl">Iniciá Sesión</h1>
                 <div>
                     <form action="#">
                         <div>
@@ -30,7 +30,7 @@ export const Login = () => {
                         <Link to={"/register"}>
                             No tenés una cuenta? Registrate!
                         </Link>
-                        {/* <Link to={"/forget-password"}>Olvidé mi password</Link> */}
+                        <Link to={"/forget-password"}>Olvidé mi password</Link>
                     </nav>
                 </div>
             </div>
