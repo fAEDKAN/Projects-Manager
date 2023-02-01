@@ -94,7 +94,7 @@ module.exports = {
     checked: async (req, res) => {
         //verificar que el usuario sea una persona y no un robot
 
-        const { token } = req.query; //http://localhost:4000/api/auth/check?token=asdakwqxasm
+        const { token } = req.query; //http://localhost:4000/api/auth/checked?token=asdakwqxasm
 
         try {
             if (!token) {

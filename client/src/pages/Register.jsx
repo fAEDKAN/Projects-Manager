@@ -10,6 +10,7 @@ const exRegEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}/;
 export const Register = () => {
     //creamos un state para manejar alert
     const [alert, setAlert] = useState({}); //el valor inicial será un objeto vacío para poder personalizar las alertas
+
     const [sending, setSending] = useState(false);
 
     //desestructuramos lo que queremos traer y como estado inicial le pasamos las propiedades
@@ -65,7 +66,7 @@ export const Register = () => {
             reset();
         } catch (error) {
             console.error(error);
-            handleShowAlert(error.response.data.msg);
+            handleShowAlert(error.response?.data.msg);
             reset();
         }
     };

@@ -14,7 +14,7 @@ const {
 router
     .post("/register", register)
     .post("/login", login)
-    .get("/check", checked)
+    .get("/checked", checked)
     .post("/send-token", sendToken)
     .route("/reset-password") //permite compartir ruta con 2 métodos distintos
         .get(verifyToken)

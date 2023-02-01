@@ -21,7 +21,7 @@ module.exports = {
                 text: "Confirmá tu cuenta en Project Manager",
                 html: `
                 <p>Hola ${name}, para confirmar tu cuenta hacé click en el siguiente enlace:</p>
-                <a href="${process.env.URL_FRONT}/confirm/${token}">Confirmar Cuenta</a>`,
+                <a href="${process.env.URL_FRONTEND}/confirm/${token}">Confirmar Cuenta</a>`,
             });
         } catch (error) {
             console.log(error);
