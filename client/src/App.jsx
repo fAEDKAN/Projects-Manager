@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
@@ -9,7 +8,7 @@ import ConfirmAccount from "./pages/ConfirmAccount";
 
 function App() {
     return (
-            <BrowserRouter>
+        <BrowserRouter>
             <Routes>
                 <Route path="/" element={<AuthLayout />}>
                     <Route index element={<Login />} />
