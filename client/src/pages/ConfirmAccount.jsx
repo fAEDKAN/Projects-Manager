@@ -32,7 +32,7 @@ export const ConfirmAccount = () => {
                 Swal.fire({
                     icon: "info",
                     title: "Gracias por registrarte!",
-                    text: data.msg,
+                    /* text: data.msg, */
                     confirmButtonText: "Iniciá sesión",
                     allowOutsideClick: false,
                 }).then((result) => {
@@ -58,11 +58,17 @@ export const ConfirmAccount = () => {
                 {alert.msg && (
                     <>
                         <Alert {...alert} />
-                        <nav>
-                            <Link to={"/register"}>
+                        <nav className="md:flex md:justify-betwwen">
+                            <Link
+                                to={"/register"}
+                                className="text-sky-500 block text-center my-3 text-sm uppercase"
+                            >
                                 No tenés una cuenta? Registrate!
                             </Link>
-                            <Link to={"/"}>
+                            <Link
+                                to={"/"}
+                                className="text-sky-500 block text-center my-3 text-sm uppercase"
+                            >
                                 Estás registrado? Iniciá sesión!
                             </Link>
                         </nav>

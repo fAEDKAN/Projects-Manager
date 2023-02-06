@@ -32,7 +32,6 @@ module.exports = {
             //guardamos el usuario
             const userStore = await user.save();
 
-            //TODO: enviar el email de confirmación
             await confirmRegister({
                 name: userStore.name,
                 email: userStore.email,

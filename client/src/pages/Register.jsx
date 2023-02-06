@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Alert } from "../components/Alert";
 import { clientAxios } from "../config/clientAxios";
@@ -55,13 +55,12 @@ export const Register = () => {
                 password,
             });
             console.log(data.msg);
-
             setSending(false); //mientras está enviándose el form se deshabilita el button
 
             Swal.fire({
                 icon: "info",
                 title: "Gracias por registrarte!",
-                text: data.msg,
+                /* text: data.msg, */
             });
             reset();
         } catch (error) {

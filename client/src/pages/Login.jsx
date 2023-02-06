@@ -9,7 +9,7 @@ export const Login = () => {
                     Iniciá Sesión
                 </h1>
                 <div>
-                    <form action="#">
+                    <form action="">
                         <div>
                             <label htmlFor="email">Correo Electrónico:</label>
                             <input
