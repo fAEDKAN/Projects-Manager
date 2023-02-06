@@ -1,11 +1,11 @@
 module.exports = {
-
     profile: async (req, res) => {
         //registra al usuario
         try {
             return res.status(200).json({
                 ok: true,
-                msg: "User profile"
+                msg: "User profile",
+                user: req.user,
             });
         } catch (error) {
             console.log(error);
@@ -17,5 +17,4 @@ module.exports = {
             });
         }
     },
-
-}
+};

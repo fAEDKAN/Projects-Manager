@@ -5,26 +5,39 @@ import Register from "./pages/Register";
 import ForgetPassword from "./pages/ForgetPassword";
 import RecoverPassword from "./pages/RecoverPassword";
 import ConfirmAccount from "./pages/ConfirmAccount";
+import { AuthProvider } from "./context/AuthProvider";
+import { ProtectedLayout } from "./layouts/ProtectedLayout";
+import { Projects } from "./pages/Projects";
 
 function App() {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<AuthLayout />}>
-                    <Route index element={<Login />} />
-                    <Route path="register" element={<Register />} />
-                    <Route
-                        path="forget-password"
-                        element={<ForgetPassword />}
-                    />
-                    <Route
-                        path="recover-password/:token"
-                        element={<RecoverPassword />}
-                    />
-                    <Route path="confirm/:token" element={<ConfirmAccount />} />
-                    <Route path="*" element={<h1>404: NOT FOUND!</h1>} />
-                </Route>
-            </Routes>
+            <AuthProvider>
+                <Routes>
+                    {/* RUTAS PÚBLICAS */}
+                    <Route path="/" element={<AuthLayout />}>
+                        <Route index element={<Login />} />
+                        <Route path="register" element={<Register />} />
+                        <Route
+                            path="forget-password"
+                            element={<ForgetPassword />}
+                        />
+                        <Route
+                            path="recover-password/:token"
+                            element={<RecoverPassword />}
+                        />
+                        <Route
+                            path="confirm/:token"
+                            element={<ConfirmAccount />}
+                        />
+                        <Route path="*" element={<h1>404: NOT FOUND!</h1>} />
+                    </Route>
+                    {/* RUTAS PRIVADAS */}
+                    <Route path="/projects" element={<ProtectedLayout />}>
+                        <Route index element={<Projects />} />
+                    </Route>
+                </Routes>
+            </AuthProvider>
         </BrowserRouter>
     );
 }

@@ -23,7 +23,7 @@ connectDb();
 app.use(logger("dev"))
     .use(express.json())
     .use(express.urlencoded({ extended: false }))
-    .use(cors(corsOptions));
+    .use(cors(/* corsOptions */));
 
 // Rutas
 app.use("/api/auth", require("./routes/auth"));

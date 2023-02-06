@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { useForm } from "../hooks/useForm";
 import { Alert } from "../components/Alert";
 import { clientAxios } from "../config/clientAxios";
+import useAuth from "../hooks/useAuth";
 
 export const Login = () => {
     const [alert, setAlert] = useState({});
+    const { setAuth } = useAuth();
 
     const handleShowAlert = (msg, time = true) => {
         setAlert({
@@ -21,7 +23,7 @@ export const Login = () => {
         reset();
     };
 
-    const { formValues, setFormValues, handleInputChange, reset } = useForm({
+    const { formValues, handleInputChange, reset } = useForm({
         email: "",
         password: "",
     });
@@ -41,7 +43,9 @@ export const Login = () => {
                 email,
                 password,
             });
-            console.log(data);
+            // console.log(data);
+            setAuth(data.user);
+            sessionStorage.setItem("token", data.token);
         } catch (error) {
             console.error(error);
             handleShowAlert(error.response?.data.msg);
