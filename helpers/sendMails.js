@@ -32,15 +32,16 @@ module.exports = {
         const { name, email, token } = data;
 
         try {
-            await transport.sendMail({
+            const infoMail = await transport.sendMail({
                 from: "Project Manager <info@projectmanager.com>",
                 to: email,
                 subject: "Restablecé tu Contraseña",
                 text: "Restablecé tu contraseña en Project Manager",
                 html: `
                 <p>Hola ${name}, restablecé tu contraseña haciendo click en el siguiente enlace:</p>
-                <a href="${process.env.URL_FRONT}/recover-password/${token}">Restablecer Contraseña</a>`,
+                <a href="${process.env.URL_FRONTEND}/recover-password/${token}">Restablecer Contraseña</a>`,
             });
+            console.log(infoMail);
         } catch (error) {
             console.log(error);
         }

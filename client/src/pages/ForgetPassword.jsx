@@ -34,6 +34,7 @@ export const ForgetPassword = () => {
             });
             setEmail("");
         } catch (error) {
+            console.error(error);
             handleShowAlert(error.response?.data.msg);
             setEmail("");
         }

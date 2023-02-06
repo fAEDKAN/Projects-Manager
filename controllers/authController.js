@@ -91,7 +91,7 @@ module.exports = {
     },
 
     checked: async (req, res) => {
-        //verificar que el usuario sea una persona y no un robot
+        //verificar que el usuario sea una persona
 
         const { token } = req.query; //http://localhost:4000/api/auth/checked?token=asdakwqxasm
 
@@ -156,7 +156,7 @@ module.exports = {
     verifyToken: async (req, res) => {
         //permite checkear el token recibido por el usuario
         try {
-            const { token } = req.body;
+            const { token } = req.query;
 
             if (!token) throw createError(400, "Token inexistente");
 
@@ -188,11 +188,14 @@ module.exports = {
                 token,
             });
 
+            if (!user)
+                throw createError(400, "El token es inválido");
+
             user.password = password;
             user.token = "";
             await user.save();
 
-            return res.status(201).json({
+            return res.status(200).json({
                 ok: true,
                 msg: "User changed password",
             });
