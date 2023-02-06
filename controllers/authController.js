@@ -63,7 +63,7 @@ module.exports = {
             });
 
             if (!user) {
-                throw createError(403, "Credenciales inválidas | EMAIL");
+                throw createError(403, "Credenciales inválidas");
             }
 
             if (!user.checked) {
@@ -79,11 +79,11 @@ module.exports = {
                 msg: "User logged in",
                 user: {
                     nombre: user.name,
-                    email: user.email,
-                    token: generateJWT({
-                        id: user._id,
-                    }),
+                    _id: user._id,
                 },
+                token: generateJWT({
+                    id: user._id,
+                }),
             });
         } catch (error) {
             return errorResponse(res, error, "LOGIN");
@@ -188,8 +188,7 @@ module.exports = {
                 token,
             });
 
-            if (!user)
-                throw createError(400, "El token es inválido");
+            if (!user) throw createError(400, "El token es inválido");
 
             user.password = password;
             user.token = "";

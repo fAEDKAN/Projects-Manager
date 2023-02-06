@@ -23,7 +23,6 @@ export const useForm = (initialState = {}) => {
         //retorna el estado del hook
         formValues,
         //los valores del estado contenidos en el hook
-        setFormValues,
         handleInputChange,
         reset,
     };
