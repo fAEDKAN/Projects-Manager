@@ -83,17 +83,17 @@ export const Register = () => {
 
     return (
         <>
-            <div className="bg-zinc-300 p-24">
-                <h1 className="text-slate-50 uppercase font-bold text-4xl">
+            <div className="bg-black p-32 w-98 h-98 text-center" >
+                <h1 className="text-white uppercase font-bold text-4xl">
                     Creá tu Cuenta
                 </h1>
                 {
                     alert.msg && <Alert {...alert} /> //cuando haya una alerta mostramos el componente y le pasamos por props las propiedades del state de alert
                 }
-                <form onSubmit={handleSubmit} noValidate>
+                <form onSubmit={handleSubmit} noValidate className="m-5">
                     {/* el formulario no recibe 'action' ya que no lo precisamos porque no usaremos MVC */}
-                    <div>
-                        <label htmlFor="name">Nombre:</label>
+                    <div className="flex flex-col gap-1 m-2">
+                        <label htmlFor="name" className="font-sans text-lg font-semibold text-white">Nombre:</label>
                         <input
                             id="name"
                             type="text"
@@ -102,10 +102,11 @@ export const Register = () => {
                             name="name" //donde toma la clave para que el hook funcione
                             onChange={handleInputChange} //el evento cuando cambia (se le agrega info) el input
                             autoComplete="off"
+                            className="bg-pink-400 h-9 border-2 border-pink-200 pl-3 rounded-3xl"
                         />
                     </div>
-                    <div>
-                        <label htmlFor="email">Correo Electrónico:</label>
+                    <div className="flex flex-col gap-1 m-2">
+                        <label htmlFor="email" className="font-sans text-lg font-semibold text-white">Correo Electrónico:</label>
                         <input
                             id="email"
                             type="email"
@@ -113,10 +114,11 @@ export const Register = () => {
                             value={email}
                             name="email" //donde toma la clave para que el hook funcione
                             onChange={handleInputChange} //el evento cuando cambia (se le agrega info) el input
+                            className="bg-pink-400 h-9 border-2 border-pink-200 pl-3 rounded-3xl"
                         />
                     </div>
-                    <div>
-                        <label htmlFor="password">Contraseña:</label>
+                    <div className="flex flex-col gap-1 m-2">
+                        <label htmlFor="password" className="font-sans text-lg font-semibold text-white">Contraseña:</label>
                         <input
                             id="password"
                             type="password"
@@ -124,10 +126,11 @@ export const Register = () => {
                             value={password}
                             name="password" //donde toma la clave para que el hook funcione
                             onChange={handleInputChange} //el evento cuando cambia (se le agrega info) el input
+                            className="bg-pink-400 h-9 border-2 border-pink-200 pl-3 rounded-3xl"
                         />
                     </div>
-                    <div>
-                        <label htmlFor="password2">
+                    <div className="flex flex-col gap-1 m-2">
+                        <label htmlFor="password2" className="font-sans text-lg font-semibold text-white">
                             Confirmá tu Contraseña:
                         </label>
                         <input
@@ -137,9 +140,10 @@ export const Register = () => {
                             value={password2}
                             name="password2" //donde toma la clave para que el hook funcione
                             onChange={handleInputChange} //el evento cuando cambia (se le agrega info) el input
+                            className="bg-pink-400 h-9 border-2 border-pink-200 pl-3 rounded-3xl"
                         />
                     </div>
-                    <button type="submit" disabled={sending}>
+                    <button type="submit" disabled={sending} className="bg-pink-600 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-pink-300 hover:border-green-600 rounded">
                         Crear Cuenta
                     </button>
                 </form>

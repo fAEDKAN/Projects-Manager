@@ -16,7 +16,7 @@ export const ProtectedLayout = () => {
         <>
             {/* si el usuario no está autorizado, se redirecciona al Login */}
             {auth._id ? (
-                <main className="container mx-auto mt-5 md:mt-10 p-5 md:flex md:justify-center">
+                <main>
                     <Outlet />
                 </main>
             ) : (

@@ -11,34 +11,39 @@ import { Projects } from "./pages/Projects";
 
 function App() {
     return (
-        <BrowserRouter>
-            <AuthProvider>
-                <Routes>
-                    {/* RUTAS PÚBLICAS */}
-                    <Route path="/" element={<AuthLayout />}>
-                        <Route index element={<Login />} />
-                        <Route path="register" element={<Register />} />
-                        <Route
-                            path="forget-password"
-                            element={<ForgetPassword />}
-                        />
-                        <Route
-                            path="recover-password/:token"
-                            element={<RecoverPassword />}
-                        />
-                        <Route
-                            path="confirm/:token"
-                            element={<ConfirmAccount />}
-                        />
-                        <Route path="*" element={<h1>404: NOT FOUND!</h1>} />
-                    </Route>
-                    {/* RUTAS PRIVADAS */}
-                    <Route path="/projects" element={<ProtectedLayout />}>
-                        <Route index element={<Projects />} />
-                    </Route>
-                </Routes>
-            </AuthProvider>
-        </BrowserRouter>
+        <div>
+            <BrowserRouter>
+                <AuthProvider>
+                    <Routes>
+                        {/* RUTAS PÚBLICAS */}
+                        <Route path="/" element={<AuthLayout />}>
+                            <Route index element={<Login />} />
+                            <Route path="register" element={<Register />} />
+                            <Route
+                                path="forget-password"
+                                element={<ForgetPassword />}
+                            />
+                            <Route
+                                path="recover-password/:token"
+                                element={<RecoverPassword />}
+                            />
+                            <Route
+                                path="confirm/:token"
+                                element={<ConfirmAccount />}
+                            />
+                            <Route
+                                path="*"
+                                element={<h1>404: NOT FOUND!</h1>}
+                            />
+                        </Route>
+                        {/* RUTAS PRIVADAS */}
+                        <Route path="/projects" element={<ProtectedLayout />}>
+                            <Route index element={<Projects />} />
+                        </Route>
+                    </Routes>
+                </AuthProvider>
+            </BrowserRouter>
+        </div>
     );
 }
 

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+input::placeholder {
+    @apply text-slate-200;
+}
+
 /* :root {
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
     font-size: 16px;
@@ -72,4 +76,3 @@ button:focus-visible {
         background-color: #f9f9f9;
     }
 } */
-
