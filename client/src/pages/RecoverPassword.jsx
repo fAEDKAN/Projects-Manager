@@ -78,39 +78,53 @@ export const RecoverPassword = () => {
 
     return (
         <>
-            <div className="bg-zinc-300 p-24">
-                <h1 className="text-slate-50 uppercase font-bold text-4xl">
-                    Restablecé tu contraseña
+            <div className="bg-neutral-400 bg-opacity-10 w-96 h-screen text-center flex justify-center items-center flex-col">
+                <h1 className="text-white uppercase font-bold text-4xl">
+                    Restablecé tu Contraseña
                 </h1>
                 {alert.msg && <Alert {...alert} />}
                 {tokenChecked ? (
-                    <form action="" onSubmit={handleSubmit} noValidate>
-                        <div>
-                            <label htmlFor="password">Nueva contraseña</label>
+                    <form
+                        action=""
+                        onSubmit={handleSubmit}
+                        noValidate
+                        className="m-5"
+                    >
+                        <div className="flex flex-col gap-1 mb-4 w-64">
+                            <label
+                                htmlFor="password"
+                                className="font-sans text-lg font-semibold text-white"
+                            >
+                                Nueva contraseña
+                            </label>
                             <input
                                 id="password"
                                 type="password"
                                 placeholder="Escribí tu nueva contraseña"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                className="px-3 py-2 bg-stone-900 bg-opacity-40 rounded-md border-solid border-2 border-white focus:outline-none focus:border-green-400 text-green-400 focus:text-green-400"
                             />
                         </div>
-                        <button type="submit">Resetear contraseña</button>
+                        <button
+                            type="submit"
+                            className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded mt-5"
+                        >
+                            Resetear contraseña
+                        </button>
                     </form>
                 ) : (
-                    <nav className="md:flex md:justify-betwwen">
-                        <Link
-                            to={"/register"}
-                            className="text-sky-500 block text-center my-3 text-sm uppercase"
-                        >
-                            No tenés una cuenta? Registrate!
-                        </Link>
-                        <Link
-                            to={"/"}
-                            className="text-sky-500 block text-center my-3 text-sm uppercase"
-                        >
-                            Estás registrado? Iniciá sesión!
-                        </Link>
+                    <nav className="flex flex-col gap-2">
+                        <div className="text-white font-semibold hover:text-green-400">
+                            <Link to={"/register"}>
+                                No tenés una cuenta? Registrate!
+                            </Link>
+                        </div>
+                        <div className="text-white font-semibold hover:text-green-400">
+                            <Link to={"/"}>
+                                Estás registrado? Iniciá sesión!
+                            </Link>
+                        </div>
                     </nav>
                 )}
             </div>

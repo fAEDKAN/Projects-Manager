@@ -54,45 +54,64 @@ export const Login = () => {
 
     return (
         <>
-            <div className="bg-zinc-300 p-24">
-                <h1 className="text-slate-50 uppercase font-bold text-4xl">
+            <div className="bg-neutral-400 bg-opacity-10 w-96 h-screen text-center flex justify-center items-center flex-col">
+                <h1 className="text-white uppercase font-bold text-4xl">
                     Iniciá Sesión
                 </h1>
                 {alert.msg && <Alert {...alert} />}
-                <div>
-                    <form onSubmit={handleSubmit} noValidate>
-                        <div>
-                            <label htmlFor="email">Correo Electrónico:</label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="Ingresá tu Email"
-                                autoComplete="off"
-                                name="email"
-                                value={email}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="password">Contraseña:</label>
-                            <input
-                                id="password"
-                                type="password"
-                                placeholder="Ingresá tu Contraseña"
-                                name="password"
-                                value={password}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <button type="submit">Iniciar Sesión</button>
-                    </form>
-                    <nav>
+                <form onSubmit={handleSubmit} noValidate className="m-5">
+                    <div className="flex flex-col gap-1 mb-4 w-64">
+                        <label
+                            htmlFor="email"
+                            className="font-sans text-lg font-semibold text-white"
+                        >
+                            Correo Electrónico:
+                        </label>
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="Ingresá tu Email"
+                            autoComplete="off"
+                            name="email"
+                            value={email}
+                            onChange={handleInputChange}
+                            className="px-3 py-2 bg-stone-900 bg-opacity-40 rounded-md border-solid border-2 border-white focus:outline-none focus:border-green-400 text-green-400 focus:text-green-400"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1 mb-4 w-64">
+                        <label
+                            htmlFor="password"
+                            className="font-sans text-lg font-semibold text-white"
+                        >
+                            Contraseña:
+                        </label>
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Ingresá tu Contraseña"
+                            name="password"
+                            value={password}
+                            onChange={handleInputChange}
+                            className="px-3 py-2 bg-stone-900 bg-opacity-40 rounded-md border-solid border-2 border-white focus:outline-none focus:border-green-400 text-green-400 focus:text-green-400"
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded mt-5"
+                    >
+                        Iniciar Sesión
+                    </button>
+                </form>
+                <nav className="flex flex-col gap-2">
+                    <div className="text-white font-semibold hover:text-green-400">
                         <Link to={"/register"}>
                             No tenés una cuenta? Registrate!
                         </Link>
+                    </div>
+                    <div className="text-white font-semibold hover:text-green-400">
                         <Link to={"/forget-password"}>Olvidé mi password</Link>
-                    </nav>
-                </div>
+                    </div>
+                </nav>
             </div>
         </>
     );

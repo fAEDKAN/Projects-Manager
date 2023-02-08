@@ -46,26 +46,30 @@ export const ConfirmAccount = () => {
 
     return (
         <>
-            <div className="bg-zinc-300 p-24">
-                <h1 className="text-slate-50 uppercase font-bold text-4xl">
+            <div className="bg-neutral-400 bg-opacity-10 w-96 h-screen text-center flex justify-center items-center flex-col">
+                <h1 className="text-white uppercase font-bold text-4xl">
                     Confirmá tu cuenta
                 </h1>
                 {alert.msg && (
                     <>
                         <Alert {...alert} />
-                        <nav className="md:flex md:justify-betwwen">
-                            <Link
-                                to={"/register"}
-                                className="text-sky-500 block text-center my-3 text-sm uppercase"
-                            >
-                                No tenés una cuenta? Registrate!
-                            </Link>
-                            <Link
-                                to={"/"}
-                                className="text-sky-500 block text-center my-3 text-sm uppercase"
-                            >
-                                Estás registrado? Iniciá sesión!
-                            </Link>
+                        <nav className="flex flex-col gap-2">
+                            <div className="text-white font-semibold hover:text-green-400">
+                                <Link
+                                    to={"/register"}
+                                    className="text-sky-500 block text-center my-3 text-sm uppercase"
+                                >
+                                    No tenés una cuenta? Registrate!
+                                </Link>
+                            </div>
+                            <div className="text-white font-semibold hover:text-green-400">
+                                <Link
+                                    to={"/"}
+                                    className="text-sky-500 block text-center my-3 text-sm uppercase"
+                                >
+                                    Estás registrado? Iniciá sesión!
+                                </Link>
+                            </div>
                         </nav>
                     </>
                 )}
