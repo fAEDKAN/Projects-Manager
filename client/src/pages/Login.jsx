@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm";
 import { Alert } from "../components/Alert";
 import { clientAxios } from "../config/clientAxios";
@@ -8,6 +8,7 @@ import useAuth from "../hooks/useAuth";
 export const Login = () => {
     const [alert, setAlert] = useState({});
     const { setAuth } = useAuth();
+    const navigate = useNavigate();
 
     const handleShowAlert = (msg, time = true) => {
         setAlert({
@@ -32,9 +33,9 @@ export const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //si algún campo viene vacío, se muestra el alerta
+
         if ([email, password].includes("")) {
-            handleShowAlert("Todos los campos son obligatorios!");
+            handleShowAlert("Todos los campos son obligatorios");
             return null;
         }
 
@@ -43,9 +44,13 @@ export const Login = () => {
                 email,
                 password,
             });
-            // console.log(data);
+
+            //console.log(data);
+
             setAuth(data.user);
             sessionStorage.setItem("token", data.token);
+
+            navigate("/projects");
         } catch (error) {
             console.error(error);
             handleShowAlert(error.response?.data.msg);
@@ -70,7 +75,7 @@ export const Login = () => {
                         <input
                             id="email"
                             type="email"
-                            placeholder="Ingresá tu Email"
+                            placeholder="Ingresá tu email"
                             autoComplete="off"
                             name="email"
                             value={email}
@@ -88,7 +93,7 @@ export const Login = () => {
                         <input
                             id="password"
                             type="password"
-                            placeholder="Ingresá tu Contraseña"
+                            placeholder="Ingresá tu contraseña"
                             name="password"
                             value={password}
                             onChange={handleInputChange}
@@ -109,7 +114,9 @@ export const Login = () => {
                         </Link>
                     </div>
                     <div className="text-white font-semibold hover:text-green-400">
-                        <Link to={"/forget-password"}>Olvidé mi password</Link>
+                        <Link to={"/forget-password"}>
+                            Olvidé mi contraseña
+                        </Link>
                     </div>
                 </nav>
             </div>

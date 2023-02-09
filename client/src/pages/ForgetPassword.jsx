@@ -67,7 +67,7 @@ export const ForgetPassword = () => {
                         <input
                             id="email"
                             type="email"
-                            placeholder="Ingresá tu Email"
+                            placeholder="Ingresá tu email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="px-3 py-2 bg-stone-900 bg-opacity-40 rounded-md border-solid border-2 border-white focus:outline-none focus:border-green-400 text-green-400 focus:text-green-400"

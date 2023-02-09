@@ -19,11 +19,58 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-    border: 2px solid rgb(74 222 128);
+    border: 2px solid rgb(74, 222, 128);
     -webkit-text-fill-color: rgb(74 222 128);
     -webkit-box-shadow: 0 0 0px 1000px #ffffff00 inset;
     transition: background-color 5000s ease-in-out 0s;
 }
+
+/** LOADER */
+
+.loader {
+    background: transparent;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #fff;
+    position: absolute;
+    border-radius: 50%;
+    animation: circle14512 2s linear infinite;
+}
+
+.circle::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4ADE80;
+    box-shadow: 0 0 20px #4ADE80, 0 0 60px #4ADE80;
+}
+
+@keyframes circle14512 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/** LOADER */
 
 /* :root {
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
