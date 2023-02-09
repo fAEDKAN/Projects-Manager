@@ -7,6 +7,7 @@ const connectDb = require("./database/config");
 const app = express();
 
 const cors = require("cors");
+const checkToken = require("./middlewares/checkToken");
 const whiteList = [process.env.URL_FRONTEND];
 const corsOptions = {
     origin: function (origin, cb) {
@@ -28,7 +29,7 @@ app.use(logger("dev"))
 // Rutas
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/users", require("./routes/users"));
-app.use("/api/projects", require("./routes/projects"));
+app.use("/api/projects", checkToken, require("./routes/projects"));
 app.use("/api/tasks", require("./routes/tasks"));
 
 // catch 404 and forward to error handler

@@ -19,7 +19,7 @@ router
 router
     .route("/:id")
     .get(detail)
-    .post(update)
+    .put(update)
     .delete(remove)
 router
     .get('/collaborator/add', addCollaborator)

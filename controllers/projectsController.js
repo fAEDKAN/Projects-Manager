@@ -1,98 +1,172 @@
-module.exports = {
+const createError = require("http-errors");
+const Project = require("../database/models/Project");
+const errorResponse = require("../helpers/errorResponse");
+const mongoose = require("mongoose");
 
+module.exports = {
     list: async (req, res) => {
-        //registra al usuario
+        //lista de proyectos
         try {
+            const projects = await Project.find()
+                .where("createdBy")
+                .equals(req.user);
+
             return res.status(201).json({
                 ok: true,
-                msg: "Projects list",
+                msg: "Listado de proyectos",
+                projects,
             });
         } catch (error) {
             console.log(error);
-            return res.status(error.status || 500).json({
-                ok: false,
-                msg:
-                    error.message ||
-                    "Ups... Something went wrong in projects list",
-            });
+            return errorResponse(res, error, "LIST");
         }
     },
 
     store: async (req, res) => {
-        //logea al usuario
-
+        //almacena los proyectos
         try {
+            const { name, description, client } = req.body;
+            const values = Object.values({ name, description, client });
+            if (values.some((value) => !value || value === "")) {
+                throw createError(400, "Todos los campos son obligatorios");
+            }
+
+            if (!req.user) throw createError(401, "Error de autenticación");
+
+            const project = new Project(req.body);
+            project.createdBy = req.user._id;
+            // console.log(project);
+
+            const projectStored = await project.save();
+
             return res.status(200).json({
                 ok: true,
-                msg: "Project stored",
+                msg: "Proyecto guardado exitosamente",
+                project: projectStored,
             });
         } catch (error) {
             console.log(error);
-            return res.status(error.status || 500).json({
-                ok: false,
-                msg:
-                    error.message ||
-                    "Ups... Something went wrong while storing the project",
-            });
+            return errorResponse(res, error, "STORE");
         }
     },
 
     detail: async (req, res) => {
-        //verificar que el usuario sea una persona y no un robot
+        //detalle del proyecto
         try {
+            const { id } = req.params;
+
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: "ID de proyecto inválida",
+                });
+            }
+
+            const project = await Project.findById(id);
+
+            if (!project) {
+                return res.status(404).json({
+                    ok: false,
+                    msg: "Proyecto no encontrado",
+                });
+            }
+
+            if (req.user._id.toString() != project.createdBy.toString())
+                throw createError(401, "No estás autorizado/a");
+
             return res.status(200).json({
                 ok: true,
-                msg: "Project detail",
+                msg: "Detalle del proyecto",
+                project,
             });
         } catch (error) {
             console.log(error);
-            return res.status(error.status || 500).json({
-                ok: false,
-                msg:
-                    error.message ||
-                    "Ups... Something went wrong in project detail",
-            });
+            return errorResponse(res, error, "DETAIL");
         }
     },
 
     update: async (req, res) => {
-        //envía un token por si el usuario quiere restablecer su contraseña
+        //actualiza el proyecto
         try {
+            const { id } = req.params;
+
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: "ID de proyecto inválida",
+                });
+            }
+
+            const project = await Project.findById(id);
+
+            if (!project) {
+                return res.status(404).json({
+                    ok: false,
+                    msg: "Proyecto no encontrado",
+                });
+            }
+
+            if (req.user._id.toString() != project.createdBy.toString())
+                throw createError(401, "No estás autorizado/a");
+
+            const { name, description, client, dataExpire } = req.body;
+
+            project.name = name || project.name;
+            project.description = description || project.description;
+            project.client = client || project.client;
+            project.dataExpire = dataExpire || project.dataExpire;
+
+            const projectUpdated = await project.save();
+
             return res.status(201).json({
                 ok: true,
-                msg: "Project updated successfully",
+                msg: "Proyecto actualizado",
+                project: projectUpdated,
             });
         } catch (error) {
             console.log(error);
-            return res.status(error.status || 500).json({
-                ok: false,
-                msg:
-                    error.message ||
-                    "Ups... Something went wrong while updating the project",
-            });
+            return errorResponse(res, error, "UPDATE");
         }
     },
 
     remove: async (req, res) => {
-        //permite checkear el token recibido por el usuario
+        //elimina el proyecto
         try {
+            const { id } = req.params;
+
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: "ID de proyecto inválida",
+                });
+            }
+
+            const project = await Project.findById(id);
+
+            if (!project) {
+                return res.status(404).json({
+                    ok: false,
+                    msg: "Proyecto no encontrado",
+                });
+            }
+
+            if (req.user._id.toString() != project.createdBy.toString())
+                throw createError(401, "No estás autorizado/a");
+
+            await project.deleteOne();
+
             return res.status(200).json({
                 ok: true,
-                msg: "Project deleted successfully",
+                msg: "Proyecto eliminado exitosamente",
             });
         } catch (error) {
             console.log(error);
-            return res.status(error.status || 500).json({
-                ok: false,
-                msg:
-                    error.message ||
-                    "Ups... Something went wrong while deleting the project",
-            });
+            return errorResponse(res, error, "REMOVE");
         }
     },
 
     addCollaborator: async (req, res) => {
-        //permite cambiar la contraseña
+        //añade colaborador al proyecto
         try {
             return res.status(201).json({
                 ok: true,
@@ -110,7 +184,7 @@ module.exports = {
     },
 
     removeCollaborator: async (req, res) => {
-        //permite cambiar la contraseña
+        //elimina colaborador del proyecto
         try {
             return res.status(200).json({
                 ok: true,
