@@ -1,9 +1,13 @@
 import React from "react";
+import { ProjectPreview } from "../components/ProjectPreview";
 
 export const Projects = () => {
     return (
-        <div className="uppercase text-white font-bold">
-            <p>Projects</p>
-        </div>
-    )
+        <>
+            <h1>Proyectos</h1>
+            <div>
+                <ProjectPreview />
+            </div>
+        </>
+    );
 };

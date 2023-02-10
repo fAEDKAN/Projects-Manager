@@ -8,6 +8,9 @@ import ConfirmAccount from "./pages/ConfirmAccount";
 import { AuthProvider } from "./context/AuthProvider";
 import { ProtectedLayout } from "./layouts/ProtectedLayout";
 import { Projects } from "./pages/Projects";
+import { ProjectAdd } from "./pages/ProjectAdd";
+import { ProjectEdit } from "./pages/ProjectEdit";
+import { Project } from "./pages/Project";
 
 function App() {
     return (
@@ -39,6 +42,15 @@ function App() {
                         {/* RUTAS PRIVADAS */}
                         <Route path="/projects" element={<ProtectedLayout />}>
                             <Route index element={<Projects />} />
+                            <Route
+                                path="create-project"
+                                element={<ProjectAdd />}
+                            />
+                            <Route
+                                path="edit-project/:id"
+                                element={<ProjectEdit />}
+                            />
+                            <Route path=":id" element={<Project />} />
                         </Route>
                     </Routes>
                 </AuthProvider>

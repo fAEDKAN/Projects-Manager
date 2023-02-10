@@ -1,6 +1,8 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { Header } from "../components/Header";
+import { Sidebar } from "../components/Sidebar";
 
 export const ProtectedLayout = () => {
     const { auth, loading } = useAuth();
@@ -19,12 +21,18 @@ export const ProtectedLayout = () => {
         <>
             {/* si el usuario no está autorizado, se redirecciona al Login */}
             {auth._id ? (
-                <main className="bg-no-repeat bg-cover bg-center h-screen w-screen flex justify-center items-center">
-                    <Outlet />
-                </main>
+                <div>
+                    <Header />
+                    <div>
+                        <Sidebar />
+                        <main className="bg-no-repeat bg-cover bg-center h-screen w-screen flex justify-center items-center">
+                            <Outlet />
+                        </main>
+                    </div>
+                </div>
             ) : (
                 <Navigate to="/" />
-                )}
+            )}
         </>
     );
 };
