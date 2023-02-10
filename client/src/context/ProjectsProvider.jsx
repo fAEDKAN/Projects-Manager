@@ -18,8 +18,7 @@ const Toast = Swal.mixin({
 const ProjectsContext = createContext();
 
 const ProjectsProvider = ({ children }) => {
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [alert, setAlert] = useState({});
 
@@ -115,22 +114,80 @@ const ProjectsProvider = ({ children }) => {
                 },
             };
 
-            const { data } = await clientAxios.post(
-                `/projects`,
-                project,
+            if (project.id) {
+                const { data } = await clientAxios.put(
+                    `/projects/${project.id}`,
+                    project,
+                    config
+                );
+
+                const projectsUpdated = project.map((projectState) => {
+                    if (projectState._id === data.project._id) {
+                        return data.project;
+                    }
+                    return projectState;
+                });
+                setProjects(projectsUpdated);
+
+                Toast.fire({
+                    icon: "success",
+                    title: data.msg,
+                });
+            } else {
+                const { data } = await clientAxios.post(
+                    `/projects`,
+                    project,
+                    config
+                );
+                //seteamos proyectos, traemos todo lo que hay ahí y agregamos respuesta API
+                setProjects([...projects, data.project]);
+
+                Toast.fire({
+                    icon: "success",
+                    title: data.msg,
+                });
+            }
+
+            navigate("/projects");
+        } catch (error) {
+            console.error(error);
+
+            showAlert(
+                error.response
+                    ? error.response.data.msg
+                    : "Ups, hubo un error!",
+                false
+            );
+        }
+    };
+
+    const deleteProject = async (id) => {
+        try {
+            const token = sessionStorage.getItem("token");
+            if (!token) return null;
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token,
+                },
+            };
+            const { data } = await clientAxios.delete(
+                `/projects/${id}`,
                 config
             );
-            //seteamos proyectos, traemos todo lo que hay ahí y agregamos respuesta API
-            setProjects([...projects, data.project]);
 
+            const projectsFiltered = projects.filter(
+                (project) => project._id !== id
+            );
+
+            setProject(projectsFiltered);
             Toast.fire({
-
-                icon: 'success',
-                title: data.msg
+                icon: "success",
+                title: data.msg,
             });
 
-            navigate('/projects')
-
+            navigate("projects");
         } catch (error) {
             console.error(error);
 
@@ -153,7 +210,8 @@ const ProjectsProvider = ({ children }) => {
                 getProjects,
                 project,
                 getProject,
-                storeProject
+                storeProject,
+                deleteProject,
             }}
         >
             {children}

@@ -1,19 +1,47 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "../hooks/useForm";
 import { useProjects } from "../hooks/useProjects";
 import { Alert } from "./Alert";
+import { useParams } from "react-router-dom";
 
 export const FormProject = () => {
-    const { alert, showAlert, storeProject } = useProjects();
+    const { alert, showAlert, storeProject, project } =
+        useProjects();
 
-    const { formValues, handleInputChange, reset } = useForm({
-        name: "",
-        description: "",
-        dateExpire: "",
-        client: "",
-    });
+    const { id } = useParams();
 
-    const { name, description, dateExpire, client } = formValues;
+    const inputName = useRef(null);
+    const inputDescription = useRef(null);
+    const inputDateExpire = useRef(null);
+    const inputClient = useRef(null);
+
+    const { formValues, handleInputChange, setFormValues } =
+        useForm({
+            name: "",
+            description: "",
+            dateExpire: "",
+            client: "",
+        });
+
+    let { name, description, dateExpire, client } = formValues;
+
+    useEffect(() => {
+        if (id) {
+            inputName.current.value = project.name;
+            inputDescription.current.value = project.description;
+            inputDateExpire.current.value =
+                project.dateExpire && project.dateExpire.split("T")[0];
+            inputClient.current.value = project.client;
+
+            setFormValues({
+                ...formValues,
+                name: project.name,
+                description: project.description,
+                dateExpire: project.dateExpire.split("T")[0],
+                client: project.client,
+            });
+        }
+    }, [id]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,6 +51,7 @@ export const FormProject = () => {
         }
 
         storeProject({
+            id: id ? id : null,
             name,
             description,
             dateExpire,
@@ -35,9 +64,7 @@ export const FormProject = () => {
             className="bg-white py-5 px-5 rounded-md border-2"
             onSubmit={handleSubmit}
         >
-            {
-                alert.msg && <Alert {...alert}/>
-            }
+            {alert.msg && <Alert {...alert} />}
             <div className="flex flex-col">
                 <label htmlFor="name">Nombre del proyecto</label>
                 <input
@@ -47,6 +74,7 @@ export const FormProject = () => {
                     value={name}
                     onChange={handleInputChange}
                     name="name"
+                    ref={inputName}
                 />
             </div>
             <div className="flex flex-col">
@@ -59,6 +87,7 @@ export const FormProject = () => {
                     value={description}
                     onChange={handleInputChange}
                     name="description"
+                    ref={inputDescription}
                 />
             </div>
             <div className="flex flex-col">
@@ -69,6 +98,7 @@ export const FormProject = () => {
                     value={dateExpire}
                     onChange={handleInputChange}
                     name="dateExpire"
+                    ref={inputDateExpire}
                 />
             </div>
             <div className="flex flex-col">
@@ -80,9 +110,18 @@ export const FormProject = () => {
                     value={client}
                     onChange={handleInputChange}
                     name="client"
+                    ref={inputClient}
                 />
             </div>
-            <button>actualizar/guardar</button>
+            <button
+                className={`${
+                    false ? "bg-green-600" : "bg-sky-600"
+                } w-full p-3 uppercase font-bold text-white rounded-lg ${
+                    false ? "hover:bg-green-500" : "hover:bg-sky-500"
+                }  transition-colors`}
+            >
+                {id ? "actualizar cambios" : "guardar proyecto"}
+            </button>
         </form>
     );
 };

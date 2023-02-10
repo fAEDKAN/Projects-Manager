@@ -10,11 +10,11 @@ export const Project = () => {
 
     const { loading, alert, getProject, project } = useProjects();
 
-    const { name, description, dateExpire, client } = project;
+    const { name, description, dateExpire, client, _id } = project;
 
     useEffect(() => {
         getProject(id);
-    }, []);
+    }, [id]);
 
     if (alert.msg) return <Alert {...alert} />;
 
@@ -31,7 +31,7 @@ export const Project = () => {
                             {name}
                         </h1>
                         <Link
-                            to={`/projects/edit-project/:id`}
+                            to={`/projects/edit-project/${_id}`}
                             className="flex justify-center items-center gap-2 text-gray-500 hover:text-black uppercase font-bold"
                         >
                             <svg
@@ -59,8 +59,8 @@ export const Project = () => {
                         </h2>
                         <hr className="border-b border-gray-600" />
                         <p>
-                            Fecha de entrega:{" "}
-                            {/* {dataExpire && dataExpire.split('T')[0]} */}
+                            Fecha de entrega:
+                            {dateExpire && dateExpire.split("T")[0]}
                         </p>
                     </div>
 

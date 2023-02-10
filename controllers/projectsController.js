@@ -111,12 +111,12 @@ module.exports = {
             if (req.user._id.toString() != project.createdBy.toString())
                 throw createError(401, "No estás autorizado/a");
 
-            const { name, description, client, dataExpire } = req.body;
+            const { name, description, client, dateExpire } = req.body;
 
             project.name = name || project.name;
             project.description = description || project.description;
             project.client = client || project.client;
-            project.dataExpire = dataExpire || project.dataExpire;
+            project.dateExpire = dateExpire || project.dateExpire;
 
             const projectUpdated = await project.save();
 

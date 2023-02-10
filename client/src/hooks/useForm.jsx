@@ -25,5 +25,6 @@ export const useForm = (initialState = {}) => {
         //los valores del estado contenidos en el hook
         handleInputChange,
         reset,
+        setFormValues
     };
 };
