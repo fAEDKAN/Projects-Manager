@@ -21,11 +21,11 @@ export const ProtectedLayout = () => {
         <>
             {/* si el usuario no está autorizado, se redirecciona al Login */}
             {auth._id ? (
-                <div>
+                <div className="bg-gray-200">
                     <Header />
-                    <div>
+                    <div className="md:flex md:min-h-screen">
                         <Sidebar />
-                        <main className="bg-no-repeat bg-cover bg-center h-screen w-screen flex justify-center items-center">
+                        <main className="bg-no-repeat bg-cover bg-center h-screen w-screen flex justify-center items-center flex-col">
                             <Outlet />
                         </main>
                     </div>

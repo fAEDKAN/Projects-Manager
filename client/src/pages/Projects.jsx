@@ -1,12 +1,27 @@
-import React from "react";
+import { useEffect } from "react";
 import { ProjectPreview } from "../components/ProjectPreview";
+import { useProjects } from "../hooks/useProjects";
 
 export const Projects = () => {
+    const { loading, alert, projects, getProjects } = useProjects();
+
+    useEffect(() => {
+        getProjects();
+    }, []);
+
     return (
         <>
-            <h1>Proyectos</h1>
-            <div>
-                <ProjectPreview />
+            <h1 className="text-4xl font-black">Proyectos</h1>
+            <div className="p-5 shadow mt-10 rounded-md">
+                {loading ? (
+                    <div className="loader">
+                        <div className="circle"></div>
+                    </div>
+                ) : projects.length ? (
+                    projects.map((project) => <ProjectPreview key={project._id} {...project} />)
+                ) : (
+                    <p>No hay proyectos agregados</p>
+                )}
             </div>
         </>
     );

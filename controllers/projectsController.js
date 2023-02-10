@@ -25,23 +25,25 @@ module.exports = {
     store: async (req, res) => {
         //almacena los proyectos
         try {
+            //recibo de body estos 3 datos
             const { name, description, client } = req.body;
+            //hago una validación
             const values = Object.values({ name, description, client });
             if (values.some((value) => !value || value === "")) {
                 throw createError(400, "Todos los campos son obligatorios");
             }
-
+            //verifico que esté autenticado el usuario
             if (!req.user) throw createError(401, "Error de autenticación");
-
+            //creo una nueva instancia de proyecto
             const project = new Project(req.body);
             project.createdBy = req.user._id;
-            // console.log(project);
-
+            //guardo los cambios
             const projectStored = await project.save();
 
             return res.status(200).json({
                 ok: true,
                 msg: "Proyecto guardado exitosamente",
+                //devuelvo el nuevo proyecto agregado
                 project: projectStored,
             });
         } catch (error) {
