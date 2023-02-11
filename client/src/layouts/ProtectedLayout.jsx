@@ -9,7 +9,7 @@ export const ProtectedLayout = () => {
 
     if (loading) {
         return (
-            <main className="bg-no-repeat bg-cover bg-center h-screen w-screen flex justify-center items-center">
+            <main className="bg-no-repeat bg-cover bg-center flex justify-center items-center">
                 <div className="loader">
                     <div className="circle"></div>
                 </div>
@@ -21,11 +21,11 @@ export const ProtectedLayout = () => {
         <>
             {/* si el usuario no está autorizado, se redirecciona al Login */}
             {auth._id ? (
-                <div className="bg-gray-200">
+                <div className="bg-transparent">
                     <Header />
                     <div className="md:flex md:min-h-screen">
                         <Sidebar />
-                        <main className="bg-no-repeat bg-cover bg-center h-screen w-screen flex justify-center items-center flex-col">
+                        <main className="bg-no-repeat bg-cover bg-center flex justify-center items-center flex-col">
                             <Outlet />
                         </main>
                     </div>

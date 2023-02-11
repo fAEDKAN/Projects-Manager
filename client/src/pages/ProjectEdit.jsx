@@ -24,7 +24,9 @@ export const ProjectEdit = () => {
     return (
         <>
             <div>
-                <h1>Editar proyecto</h1>
+                <h1 className="text-white uppercase font-bold text-4xl">
+                    Editar proyecto
+                </h1>
                 <div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +45,6 @@ export const ProjectEdit = () => {
 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-
 1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09
 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-
                         />
                     </svg>
 

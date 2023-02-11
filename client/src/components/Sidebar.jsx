@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 
 export const Sidebar = () => {
     return (
-        <aside className="md:w-80 px-5 py-10">
-            <p className="text-xl font-bold">Hola: {/* {auth.name} */}</p>
-            <Link to={"create-project"} className="bg-sky-600 w-full p3 text-white uppercase font-bold rounded-md block mt5 text-center">Nuevo proyecto</Link>
+        <aside className="z-10 mt-24 ml-4">
+            <Link
+                to="create-project"
+                className="uppercase bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded mt-5"
+                >
+                Nuevo Proyecto
+            </Link>
         </aside>
     );
 };
+

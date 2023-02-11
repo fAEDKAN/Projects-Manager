@@ -5,8 +5,7 @@ import { Alert } from "./Alert";
 import { useParams } from "react-router-dom";
 
 export const FormProject = () => {
-    const { alert, showAlert, storeProject, project } =
-        useProjects();
+    const { alert, showAlert, storeProject, project } = useProjects();
 
     const { id } = useParams();
 
@@ -15,13 +14,12 @@ export const FormProject = () => {
     const inputDateExpire = useRef(null);
     const inputClient = useRef(null);
 
-    const { formValues, handleInputChange, setFormValues } =
-        useForm({
-            name: "",
-            description: "",
-            dateExpire: "",
-            client: "",
-        });
+    const { formValues, handleInputChange, setFormValues } = useForm({
+        name: "",
+        description: "",
+        dateExpire: "",
+        client: "",
+    });
 
     let { name, description, dateExpire, client } = formValues;
 
@@ -60,68 +58,90 @@ export const FormProject = () => {
     };
 
     return (
-        <form
-            className="bg-white py-5 px-5 rounded-md border-2"
-            onSubmit={handleSubmit}
-        >
-            {alert.msg && <Alert {...alert} />}
-            <div className="flex flex-col">
-                <label htmlFor="name">Nombre del proyecto</label>
-                <input
-                    id="name"
-                    type="text"
-                    placeholder="Nombre del proyecto"
-                    value={name}
-                    onChange={handleInputChange}
-                    name="name"
-                    ref={inputName}
-                />
+        <>
+            <div>
+                <form className="m-5" onSubmit={handleSubmit}>
+                    {alert.msg && <Alert {...alert} />}
+                    <div className="flex flex-col gap-1 mb-4 w-64">
+                        <label
+                            htmlFor="name"
+                            className="font-sans text-lg font-semibold text-white"
+                        >
+                            Nombre del proyecto
+                        </label>
+                        <input
+                            id="name"
+                            type="text"
+                            placeholder="Nombre del proyecto"
+                            value={name}
+                            onChange={handleInputChange}
+                            name="name"
+                            ref={inputName}
+                            className="px-3 py-2 bg-stone-900 bg-opacity-40 rounded-md border-solid border-2 border-white focus:outline-none focus:border-green-400 text-green-400 focus:text-green-400"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1 mb-4 w-64">
+                        <label
+                            htmlFor="description"
+                            className="font-sans text-lg font-semibold text-white"
+                        >
+                            Descripción
+                        </label>
+                        <textarea
+                            id="description"
+                            type="text"
+                            style={{ resize: "none" }}
+                            placeholder="Descripción del proyecto"
+                            value={description}
+                            onChange={handleInputChange}
+                            name="description"
+                            ref={inputDescription}
+                            className="px-3 py-2 bg-stone-900 bg-opacity-40 rounded-md border-solid border-2 border-white focus:outline-none focus:border-green-400 text-green-400 focus:text-green-400"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1 mb-4 w-64">
+                        <label
+                            htmlFor="date-expire"
+                            className="font-sans text-lg font-semibold text-white"
+                        >
+                            Fecha de entrega
+                        </label>
+                        <input
+                            id="date-expire"
+                            type="date"
+                            value={dateExpire}
+                            onChange={handleInputChange}
+                            name="dateExpire"
+                            ref={inputDateExpire}
+                            className="px-3 py-2 bg-stone-900 bg-opacity-40 rounded-md border-solid border-2 border-white focus:outline-none focus:border-green-400 text-green-400 focus:text-green-400"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1 mb-4 w-64">
+                        <label
+                            htmlFor="client"
+                            className="font-sans text-lg font-semibold text-white"
+                        >
+                            Nombre del cliente
+                        </label>
+                        <input
+                            id="client"
+                            type="text"
+                            placeholder="Nombre del cliente"
+                            value={client}
+                            onChange={handleInputChange}
+                            name="client"
+                            ref={inputClient}
+                            className="px-3 py-2 bg-stone-900 bg-opacity-40 rounded-md border-solid border-2 border-white focus:outline-none focus:border-green-400 text-green-400 focus:text-green-400"
+                        />
+                    </div>
+                    <button
+                        className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded mt-5">
+                        {id ? "Actualizar Cambios" : "Guardar Proyecto"}
+                    </button>
+                </form>
             </div>
-            <div className="flex flex-col">
-                <label htmlFor="description">Descripción</label>
-                <textarea
-                    id="description"
-                    type="text"
-                    style={{ resize: "none" }}
-                    placeholder="Descripción del proyecto"
-                    value={description}
-                    onChange={handleInputChange}
-                    name="description"
-                    ref={inputDescription}
-                />
-            </div>
-            <div className="flex flex-col">
-                <label htmlFor="date-expire">Fecha de entrega</label>
-                <input
-                    id="date-expire"
-                    type="date"
-                    value={dateExpire}
-                    onChange={handleInputChange}
-                    name="dateExpire"
-                    ref={inputDateExpire}
-                />
-            </div>
-            <div className="flex flex-col">
-                <label htmlFor="client">Nombre del cliente</label>
-                <input
-                    id="client"
-                    type="text"
-                    placeholder="Nombre del cliente"
-                    value={client}
-                    onChange={handleInputChange}
-                    name="client"
-                    ref={inputClient}
-                />
-            </div>
-            <button
-                className={`${
-                    false ? "bg-green-600" : "bg-sky-600"
-                } w-full p-3 uppercase font-bold text-white rounded-lg ${
-                    false ? "hover:bg-green-500" : "hover:bg-sky-500"
-                }  transition-colors`}
-            >
-                {id ? "actualizar cambios" : "guardar proyecto"}
-            </button>
-        </form>
+        </>
     );
 };
+
+//className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 border-b-4 border-orange-700 hover:border-orange-500 rounded mt-5"

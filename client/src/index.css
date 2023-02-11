@@ -8,6 +8,9 @@ input::placeholder {
 
 main {
     background-image: url("/wallhaven-j5qlky.jpg");
+    width: 100%;
+    height: 100vh;
+    position: absolute;
 }
 
 input:-webkit-autofill,
@@ -26,7 +29,6 @@ select:-webkit-autofill:focus {
 }
 
 /** LOADER */
-
 .loader {
     background: transparent;
     width: 80px;
@@ -56,8 +58,8 @@ select:-webkit-autofill:focus {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #4ADE80;
-    box-shadow: 0 0 20px #4ADE80, 0 0 60px #4ADE80;
+    background: #4ade80;
+    box-shadow: 0 0 20px #4ade80, 0 0 60px #4ade80;
 }
 
 @keyframes circle14512 {
@@ -69,8 +71,137 @@ select:-webkit-autofill:focus {
         transform: rotate(360deg);
     }
 }
-
 /** LOADER */
+
+/** CARD  */
+.card {
+    width: 25em;
+    height: 35em;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.25);
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    -webkit-transition: 0.5s ease-out;
+    transition: 0.5s ease-out;
+    overflow: visible;
+}
+
+.card-details {
+    color: black;
+    height: 100%;
+    gap: 0.5em;
+    display: grid;
+    place-content: center;
+}
+
+.card-button {
+    -webkit-transform: translate(-50%, 125%);
+    -ms-transform: translate(-50%, 125%);
+    transform: translate(-50%, 125%);
+    width: 60%;
+    border-radius: 1rem;
+    border: none;
+    background-color: #4ade80;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    opacity: 0;
+    -webkit-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
+}
+
+.text-body {
+    color: black;
+}
+
+/*Text*/
+.text-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/*Hover*/
+.card:hover {
+    border-color: #4ade80;
+    -webkit-box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card:hover .card-button {
+    -webkit-transform: translate(-50%, 50%);
+    -ms-transform: translate(-50%, 50%);
+    transform: translate(-50%, 50%);
+    opacity: 1;
+}
+/** CARD  */
+
+/** CARD PROJECTS  */
+.card-project {
+    cursor: pointer;
+    width: 15em;
+    height: 4em;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: 2px solid #4ade80;
+    transition: all 0.2s;
+    box-shadow: 6px 6px 2px 1px #4ade80;
+}
+
+.card-project:hover {
+    box-shadow: -6px 6px 2px -1px #4ade80;
+}
+/** CARD PROJECTS  */
+
+/** SEARCH BAR */
+.group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    line-height: 28px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    width: 25%;
+}
+
+.inputSearch {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+}
+
+.inputSearch:focus,
+.inputSearch:hover {
+    outline: none;
+    border-color: rgb(74, 222, 128);
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
+
+/** SEARCH BAR */
 
 /* :root {
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
